@@ -1,8 +1,10 @@
+from src.product import Product
+
 class Category:
     """ Класс для представления категории товаров. """
     name: str
     description: str
-    products: list
+    _products: list
 
     # Атрибуты класса для подсчета
     category_count = 0
@@ -15,8 +17,23 @@ class Category:
 
         self.name = name
         self.description = description
-        self.products = products
+        self._products = products
 
         # Увеличение счетчиков при создании новой категории
         Category.category_count += 1
         Category.product_count += len(products)
+
+    def add_product(self, product):
+        """ Метод добавляет продукт в категорию """
+        if not isinstance(product, Product):
+            raise TypeError("Продукт должен быть объектом класса Product")
+        self._products.append(product)
+        Category.product_count += 1
+
+    @property
+    def products(self):
+        product_list = []
+        for product in self._products:
+            product_info = f"{product.name}, {product.price} руб. Остаток: {product.quantity} шт."
+            product_list.append(product_info)
+        return "\n".join(product_list)

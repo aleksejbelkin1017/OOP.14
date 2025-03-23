@@ -16,3 +16,19 @@ class Product:
         self.description = description
         self.price = price
         self.quantity = quantity
+
+    @classmethod
+    def new_product(cls, product_data):
+        """
+        Создает новый объект Product из словаря с данными
+        :param product_data: словарь с параметрами товара
+        :return: объект класса Product
+        """
+        # Извлекаем параметры из словаря
+        name = product_data.get('name')
+        description = product_data.get('description')
+        price = product_data.get('price')
+        quantity = product_data.get('quantity')
+
+        # Создаем новый объект через конструктор
+        return cls(name, description, price, quantity)
