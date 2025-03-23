@@ -18,10 +18,11 @@ class Product:
         self.quantity = quantity
 
     @classmethod
-    def new_product(cls, product_data):
+    def new_product(cls, product_data, existing_products=None):
         """
         Создает новый объект Product из словаря с данными
         :param product_data: словарь с параметрами товара
+        :param existing_products: список существующих товаров для проверки дубликатов
         :return: объект класса Product
         """
         # Извлекаем параметры из словаря
@@ -30,5 +31,15 @@ class Product:
         price = product_data.get('price')
         quantity = product_data.get('quantity')
 
-        # Создаем новый объект через конструктор
+        # Если передан список существующих товаров
+        if existing_products:
+            # Ищем товар с таким же названием
+            for existing_product in existing_products:
+                if existing_product.name == name:
+                    # Если нашли, обновляем количество и цену
+                    existing_product.quantity += quantity
+                    existing_product.price = max(existing_product.price, price)
+                    return existing_product
+
+        # Если товар не найден или список не передан - создаем новый
         return cls(name, description, price, quantity)
