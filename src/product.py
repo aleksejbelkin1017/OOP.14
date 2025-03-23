@@ -27,6 +27,13 @@ class Product:
         """ Сеттер для цены с проверкой """
         if new_price <= 0:
             print("Цена не должна быть нулевая или отрицательная")
+        elif new_price < self._price:
+            # Запрос подтверждения от пользователя
+            response = input(f"Цена ниже текущей. Подтвердить изменение? (y/n): ")
+            if response.lower() == 'y':
+                self._price = new_price
+            else:
+                print("Изменение цены отменено пользователем")
         else:
             self._price = new_price
 
