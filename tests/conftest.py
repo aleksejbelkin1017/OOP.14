@@ -31,8 +31,22 @@ def product3():
 
 # Фикстура для категории с продуктами
 @pytest.fixture
-def category(product1, product2, product3):
-    category = Category("Смартфоны",
-                        "Категории современных смартфонов",
-                        [product1, product2, product3])
-    return category
+def category():
+    product1 = Product("iPhone 15", "512GB, Gray space", 210000.0, 8)
+    product2 = Product("iPhone 14", "256GB, Silver", 180000.0, 5)
+    product3 = Product("iPhone 13", "128GB, Black", 150000.0, 3)
+    return Category("Смартфоны", "Категории смартфонов", [product1, product2, product3])
+
+
+# Фикстура для тестов homework 14.2
+@pytest.fixture
+def product():
+    return Product("iPhone 15", "512GB, Gray space", 210000.0, 8)
+
+
+
+@pytest.fixture
+def category2():
+    product1 = Product("iPhone 15", "512GB, Gray space", 210000.0, 8)
+    product2 = Product("iPhone 14", "256GB, Silver", 180000.0, 5)
+    return Category("Смартфоны", "Категории смартфонов", [product1, product2])
