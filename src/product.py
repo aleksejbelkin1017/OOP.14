@@ -29,7 +29,7 @@ class Product:
             print("Цена не должна быть нулевая или отрицательная")
         elif new_price < self._price:
             # Запрос подтверждения от пользователя
-            response = input(f"Цена ниже текущей. Подтвердить изменение? (y/n): ")
+            response = input("Цена ниже текущей. Подтвердить изменение? (y/n): ")
             if response.lower() == 'y':
                 self._price = new_price
             else:

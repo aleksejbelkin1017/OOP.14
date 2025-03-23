@@ -1,6 +1,7 @@
+from unittest.mock import patch
+
 import pytest
 
-from unittest.mock import patch
 from src.product import Product
 
 
@@ -63,14 +64,14 @@ def test_setter_lower_price_reject(product):
     # Проверка понижения цены с отказом
     with patch('builtins.input', return_value='n'):
         product.price = 200000.0
-    assert product.price == 210000.0 # Цена не изменилась
+    assert product.price == 210000.0  # Цена не изменилась
 
 
 def test_setter_lower_price_accept(product):
     # Проверка понижения цены с подтверждением
     with patch('builtins.input', return_value='y'):
         product.price = 200000.0
-    assert product.price == 200000.0 # Цена изменилась
+    assert product.price == 200000.0  # Цена изменилась
 
 
 def test_new_product_unique():
