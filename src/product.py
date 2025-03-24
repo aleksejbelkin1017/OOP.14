@@ -2,7 +2,7 @@ class Product:
     """ Класс для представления товара. """
     name: str
     description: str
-    _price: float
+    __price: float
     quantity: int
 
     def __init__(self, name, description, price, quantity):
@@ -14,28 +14,28 @@ class Product:
 
         self.name = name
         self.description = description
-        self._price = price
+        self.__price = price
         self.quantity = quantity
 
     @property
     def price(self):
         """ Геттер для цены """
-        return self._price
+        return self.__price
 
     @price.setter
     def price(self, new_price):
         """ Сеттер для цены с проверкой """
         if new_price <= 0:
             print("Цена не должна быть нулевая или отрицательная")
-        elif new_price < self._price:
+        elif new_price < self.__price:
             # Запрос подтверждения от пользователя
             response = input("Цена ниже текущей. Подтвердить изменение? (y/n): ")
             if response.lower() == 'y':
-                self._price = new_price
+                self.__price = new_price
             else:
                 print("Изменение цены отменено пользователем")
         else:
-            self._price = new_price
+            self.__price = new_price
 
     @classmethod
     def new_product(cls, product_data, existing_products=None):

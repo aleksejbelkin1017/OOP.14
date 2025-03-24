@@ -26,9 +26,10 @@ def test_product_invalid_quantity():
         Product("Test", "Desc", 100.0, "invalid")
 
 
-def test_private_price(product):
-    # Проверка, что нельзя напрямую обратиться к _price
-    assert product._price is not None  # Проверяем, что атрибут существует
+def test_private_attribute_protection(product):
+    # Проверяем, что нельзя напрямую обратиться к приватному атрибуту
+    with pytest.raises(AttributeError):
+        product.__price  # Попытка прямого доступа
 
 
 def test_getter(product):
