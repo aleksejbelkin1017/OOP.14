@@ -95,3 +95,36 @@ def test_invalid_product_addition(category2):
     # Проверка обработки ошибки при добавлении некорректного продукта
     with pytest.raises(TypeError):
         category2.add_product("Некорректный продукт")
+
+
+# Тесты 15.1 для класса Category
+def test_category_str():
+    product1 = Product("Яблоко", "Свежее яблоко", 80, 15)
+    product2 = Product("Апельсин", "Сочный апельсин", 100, 10)
+    category = Category("Фрукты", "Свежие фрукты", [product1, product2])
+    assert str(category) == "Фрукты, количество продуктов: 25 шт."
+
+
+def test_category_products():
+    product1 = Product("Яблоко", "Свежее яблоко", 80, 15)
+    product2 = Product("Апельсин", "Сочный апельсин", 100, 10)
+    category = Category("Фрукты", "Свежие фрукты", [product1, product2])
+    expected = (
+        "Яблоко, 80 руб. Остаток: 15 шт.\n"
+        "Апельсин, 100 руб. Остаток: 10 шт."
+    )
+    assert category.products == expected
+
+
+def test_category_add_product():
+    product1 = Product("Яблоко", "Свежее яблоко", 80, 15)
+    category = Category("Фрукты", "Свежие фрукты", [product1])
+    product2 = Product("Апельсин", "Сочный апельсин", 100, 10)
+    category.add_product(product2)
+    assert str(category) == "Фрукты, количество продуктов: 25 шт."
+
+
+def test_category_invalid_product_type():
+    category = Category("Фрукты", "Свежие фрукты", [])
+    with pytest.raises(TypeError):
+        category.add_product("invalid")

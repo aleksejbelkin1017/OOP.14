@@ -63,3 +63,16 @@ class Product:
 
         # Если товар не найден или список не передан - создаем новый
         return cls(name, description, price, quantity)
+
+    def __str__(self):
+        return f'{self.name}, {self.price} руб. Остаток: {self.quantity} шт.'
+
+    def __add__(self, other):
+        if isinstance(other, Product):
+            # Если складываем два продукта
+            return self.price * self.quantity + other.price * other.quantity
+        elif isinstance(other, (int, float)):
+            # Если складываем с числом - считаем, что это дополнительная стоимость
+            return self.price * self.quantity + other
+        else:
+            raise TypeError("Нельзя складывать продукт с объектом другого типа")
