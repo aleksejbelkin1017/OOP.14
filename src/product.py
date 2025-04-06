@@ -5,7 +5,7 @@ class Product:
     __price: float
     quantity: int
 
-    def __init__(self, name, description, price, quantity):
+    def __init__(self, name, description, price, quantity, color=None):
         """ Инициализирует новый экземпляр класса Product. """
         if not isinstance(price, (int, float)):
             raise TypeError("Цена должна быть числом")
@@ -16,6 +16,7 @@ class Product:
         self.description = description
         self.__price = price
         self.quantity = quantity
+        self.color = color
 
     @property
     def price(self):
@@ -68,11 +69,34 @@ class Product:
         return f'{self.name}, {self.price} руб. Остаток: {self.quantity} шт.'
 
     def __add__(self, other):
-        if isinstance(other, Product):
-            # Если складываем два продукта
-            return self.price * self.quantity + other.price * other.quantity
-        elif isinstance(other, (int, float)):
-            # Если складываем с числом - считаем, что это дополнительная стоимость
-            return self.price * self.quantity + other
-        else:
-            raise TypeError("Нельзя складывать продукт с объектом другого типа")
+        # Проверяем, что other является объектом Product
+        if not isinstance(other, Product):
+            if isinstance(other, (int, float)):
+                # Если other - число, возвращаем общую стоимость с добавленной суммой
+                return self.price * self.quantity + other
+            else:
+                raise TypeError("Нельзя складывать продукт с объектом другого типа")
+
+        # Проверяем, что классы продуктов совпадают
+        if type(self) is not type(other):
+            raise TypeError("Можно складывать только товары одного типа")
+
+        # Если все проверки пройдены, возвращаем сумму стоимостей
+        return self.price * self.quantity + other.price * other.quantity
+
+
+class Smartphone(Product):
+
+    def __init__(self, name, description, price, quantity, efficiency, model, memory, color):
+        super().__init__(name, description, price, quantity, color)
+        self.efficiency = efficiency
+        self.model = model
+        self.memory = memory
+
+
+class LawnGrass(Product):
+
+    def __init__(self, name, description, price, quantity, country, germination_period, color):
+        super().__init__(name, description, price, quantity, color)
+        self.country = country
+        self.germination_period = germination_period
