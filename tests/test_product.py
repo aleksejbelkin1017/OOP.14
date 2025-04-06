@@ -102,3 +102,27 @@ def test_new_product_duplicate():
     assert result == existing_products[0]  # Должен вернуть существующий объект
     assert existing_products[0].quantity == 11  # Количество должно суммироваться
     assert existing_products[0].price == 210000.0  # Цена должна обновиться на максимальную
+
+
+# Тесты 15.1 для класса Product
+def test_product_str():
+    product = Product("Яблоко", "Свежее яблоко", 80, 15)
+    expected = "Яблоко, 80 руб. Остаток: 15 шт."
+    assert str(product) == expected
+
+
+def test_product_add():
+    product1 = Product("Яблоко", "Свежее яблоко", 80, 15)
+    product2 = Product("Апельсин", "Сочный апельсин", 100, 10)
+    assert product1 + product2 == 2200
+
+
+def test_product_add_with_number():
+    product = Product("Яблоко", "Свежее яблоко", 80, 15)
+    assert product + 500 == 1700
+
+
+def test_product_add_invalid_type():
+    product = Product("Яблоко", "Свежее яблоко", 80, 15)
+    with pytest.raises(TypeError):
+        product + "invalid"

@@ -39,8 +39,10 @@ class Category:
 
     @property
     def products(self):
-        product_list = []
-        for product in self._products:
-            product_info = f"{product.name}, {product.price} руб. Остаток: {product.quantity} шт."
-            product_list.append(product_info)
-        return "\n".join(product_list)
+        # Используем str() для преобразования каждого продукта в строку
+        return "\n".join(str(product) for product in self._products)
+
+    def __str__(self):
+        # Подсчитываем общее количество товаров в категории
+        total_quantity = sum(product.quantity for product in self._products)
+        return f"{self.name}, количество продуктов: {total_quantity} шт."
