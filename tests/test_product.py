@@ -126,3 +126,45 @@ def test_product_add_invalid_type():
     product = Product("Яблоко", "Свежее яблоко", 80, 15)
     with pytest.raises(TypeError):
         product + "invalid"
+
+
+# Тесты для смартфона
+def test_smartphone_attributes(smartphone1):
+    assert smartphone1.name == "Samsung Galaxy S23 Ultra"
+    assert smartphone1.model == "S23 Ultra"
+    assert smartphone1.memory == 256
+    assert smartphone1.efficiency == 95.5
+    assert smartphone1.price == 180000.0
+    assert smartphone1.quantity == 5
+    assert smartphone1.color == "Серый"
+
+
+# Тесты для газонной травы
+def test_lawn_grass_attributes(grass1):
+    assert grass1.name == "Газонная трава"
+    assert grass1.country == "Россия"
+    assert grass1.germination_period == "7 дней"
+    assert grass1.price == 500.0
+    assert grass1.quantity == 20
+    assert grass1.color == "Зеленый"
+
+
+# Тесты сложения
+def test_product_addition(smartphone1, smartphone2, grass1, grass2):
+    # Сложение смартфонов
+    total_smartphone_cost = smartphone1 + smartphone2
+    expected_cost = (smartphone1.price * smartphone1.quantity
+                     + smartphone2.price * smartphone2.quantity)
+    assert total_smartphone_cost == expected_cost
+
+    # Сложение газонной травы
+    total_grass_cost = grass1 + grass2
+    expected_cost = (grass1.price * grass1.quantity
+                     + grass2.price * grass2.quantity)
+    assert total_grass_cost == expected_cost
+
+
+# Тест недопустимого сложения
+def test_invalid_addition(smartphone1, grass1):
+    with pytest.raises(TypeError):
+        smartphone1 + grass1

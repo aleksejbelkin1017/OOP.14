@@ -19,8 +19,8 @@ class Category:
         self.name = name
         self.description = description
         self._products = products
-        print(f"Инициализированные продукты: {[f'{product.name}, {product.price} руб., '
-                                               f'{product.quantity} шт.' for product in self._products]}")
+        # print(f"Инициализированные продукты: {[f'{product.name}, {product.price} руб., '
+        #                                        f'{product.quantity} шт.' for product in self._products]}")
 
         # Увеличение счетчиков при создании новой категории
         Category.category_count += 1
@@ -28,13 +28,16 @@ class Category:
 
     def add_product(self, product):
         """ Метод добавляет продукт в категорию """
-        print(f"Продукты до добавления: {[f'{product.name}, {product.price} руб., '
-                                          f'{product.quantity} шт.' for product in self._products]}")
+        # print(f"Продукты до добавления: {[f'{product.name}, {product.price} руб., '
+        #                                   f'{product.quantity} шт.' for product in self._products]}")
+
+        # Проверяем, является ли объект экземпляром класса Product или его подкласса
         if not isinstance(product, Product):
-            raise TypeError("Продукт должен быть объектом класса Product")
+            raise TypeError("Продукт должен быть объектом класса Product или его подкласса")
+
         self._products.append(product)
-        print(f"Продукты после добавления: {[f'{product.name}, {product.price} руб., '
-                                             f'{product.quantity} шт.' for product in self._products]}")
+        # print(f"Продукты после добавления: {[f'{product.name}, {product.price} руб., '
+        #                                      f'{product.quantity} шт.' for product in self._products]}")
         Category.product_count += 1
 
     @property
