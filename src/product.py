@@ -25,7 +25,12 @@ class BaseProduct(ABC):
         pass
 
 
-class Product(BaseProduct):
+class MixinPrintInfo:
+    def __init__(self, *args, **kwargs):
+        print(f'Создан объект {self.__class__.__name__} с параметрами: {args} {kwargs}')
+
+
+class Product(MixinPrintInfo, BaseProduct):
     """ Класс для представления товара. """
     name: str
     description: str
@@ -39,6 +44,7 @@ class Product(BaseProduct):
         if not isinstance(quantity, int):
             raise TypeError("Количество должно быть целым числом")
 
+        super().__init__(name, description, price, quantity)
         self.name = name
         self.description = description
         self.__price = price
