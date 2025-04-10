@@ -1,4 +1,31 @@
-class Product:
+from abc import ABC, abstractmethod
+
+
+class BaseProduct(ABC):
+    """ Абстрактный базовый класс для всех продуктов """
+
+    @property
+    @abstractmethod
+    def price(self):
+        """ Геттер для цены """
+        pass
+
+    @price.setter
+    @abstractmethod
+    def price(self, new_price):
+        """ Сеттер для цены с проверкой """
+        pass
+
+    @abstractmethod
+    def __str__(self):
+        pass
+
+    @abstractmethod
+    def __add__(self, other):
+        pass
+
+
+class Product(BaseProduct):
     """ Класс для представления товара. """
     name: str
     description: str
