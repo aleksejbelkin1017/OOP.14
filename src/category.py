@@ -49,3 +49,12 @@ class Category:
         # Подсчитываем общее количество товаров в категории
         total_quantity = sum(product.quantity for product in self._products)
         return f"{self.name}, количество продуктов: {total_quantity} шт."
+
+    def middle_price(self):
+        try:
+            total_price = sum(product.price * product.quantity for product in self._products)
+            total_quantity = sum(product.quantity for product in self._products)
+            average_price = total_price / total_quantity
+            return average_price
+        except ZeroDivisionError:
+            return 0
