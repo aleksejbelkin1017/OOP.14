@@ -43,6 +43,8 @@ class Product(MixinPrintInfo, BaseProduct):
             raise TypeError("Цена должна быть числом")
         if not isinstance(quantity, int):
             raise TypeError("Количество должно быть целым числом")
+        if quantity == 0:
+            raise ValueError("Товар с нулевым количеством не может быть добавлен")
 
         super().__init__(name, description, price, quantity)
         self.name = name
