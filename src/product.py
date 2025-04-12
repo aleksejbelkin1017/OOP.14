@@ -1,4 +1,36 @@
-class Product:
+from abc import ABC, abstractmethod
+
+
+class BaseProduct(ABC):
+    """ Абстрактный базовый класс для всех продуктов """
+
+    @property
+    @abstractmethod
+    def price(self):
+        """ Геттер для цены """
+        pass
+
+    @price.setter
+    @abstractmethod
+    def price(self, new_price):
+        """ Сеттер для цены с проверкой """
+        pass
+
+    @abstractmethod
+    def __str__(self):
+        pass
+
+    @abstractmethod
+    def __add__(self, other):
+        pass
+
+
+class MixinPrintInfo:
+    def __init__(self, *args, **kwargs):
+        print(f'Создан объект {self.__class__.__name__} с параметрами: {args} {kwargs}')
+
+
+class Product(MixinPrintInfo, BaseProduct):
     """ Класс для представления товара. """
     name: str
     description: str
@@ -12,6 +44,7 @@ class Product:
         if not isinstance(quantity, int):
             raise TypeError("Количество должно быть целым числом")
 
+        super().__init__(name, description, price, quantity)
         self.name = name
         self.description = description
         self.__price = price
