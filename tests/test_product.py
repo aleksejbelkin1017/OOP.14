@@ -168,3 +168,10 @@ def test_product_addition(smartphone1, smartphone2, grass1, grass2):
 def test_invalid_addition(smartphone1, grass1):
     with pytest.raises(TypeError):
         smartphone1 + grass1
+
+
+# Тест нулевого количества товаров
+def test_product_zero_quantity():
+    with pytest.raises(ValueError) as exc_info:
+        Product("Бракованный товар", "Неверное количество", 1000.0, 0)
+        assert str(exc_info.value) == "Товар с нулевым количеством не может быть добавлен"
